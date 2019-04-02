@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Tile.qml</file>
+        <file>Filler.qml</file>
+        <file>Button.qml</file>
+    </qresource>
+</RCC>

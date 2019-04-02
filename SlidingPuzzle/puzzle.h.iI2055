@@ -1,0 +1,32 @@
+#ifndef PUZZLE_H
+#define PUZZLE_H
+#include <QTimer>
+#include <QObject>
+#include <QDebug>
+#include <QVariant>
+#include <QObject>
+#include <QDebug>
+
+class mypuzzle: public QObject
+{
+    Q_OBJECT
+private:
+    QTimer *pTimer;
+    int notUsed[8];
+    int timer;
+
+public:
+    void start();
+    mypuzzle();
+signals:
+    void updateTimer(QVariant);
+    void randSignal(QVariant);
+
+private slots:
+    void onStartNew();
+    void onTimerEvent();
+    void onGetRand();
+    void onWin();
+
+};
+#endif // PUZZLE_H

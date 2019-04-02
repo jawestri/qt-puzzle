@@ -1,0 +1,136 @@
+import QtQuick 2.6
+import QtQuick.Window 2.2
+
+
+Rectangle{
+    width: 800; height: 800
+    id: main
+    signal startNew()
+    signal getRand()
+    property int temp: 0
+    property int i
+    property int gameTimer: 0
+    function onUpdateTimer(time){
+        gameTimer = time
+    }
+    function onRandSignal(rand){
+        temp = rand
+    }
+
+    Rectangle{
+        id:rect
+        border.color: "grey"
+        border.width:3
+        width: 600; height: 600
+        anchors.centerIn:parent
+        property int emptyX: 400
+        property int emptyY: 400
+
+
+
+
+        Column{
+            anchors.centerIn: rect
+            spacing: 20
+
+            Row{
+                Filler{}
+            }
+
+            Row{
+
+                Grid{
+                    id:grid
+                    spacing: 0
+                    rows: 3; columns:3
+                    Tile{
+                        id:one
+                        caption:"1"
+                    }
+                    Tile{
+                        id:two
+                        caption:"2"
+                    }
+                    Tile{
+                        id:three
+                        caption:"3"
+                    }
+                    Tile{
+                        id:four
+                        caption:"4"
+                    }
+                    Tile{
+                        id: five
+                        caption:"5"
+                    }
+                    Tile{
+                        id:six
+                        caption:"6"
+                    }
+                    Tile{
+                        id:seven
+                        caption:"7"
+                    }
+                    Tile{
+                        id:eight
+                        caption:"8"
+                    }
+                }
+            }
+
+            Row{
+                Column{
+                    Button{
+
+                        caption:"Click to Start"
+                        onClicked:{
+                            gameTimer = 0
+                            rect.emptyX = 400
+                            rect.emptyY = 400
+                            main.startNew()
+
+                            main.getRand()
+                            one.state = temp
+                            main.getRand()
+                            two.state = temp
+                            main.getRand()
+                            three.state = temp
+                            main.getRand()
+                            four.state = temp
+                            main.getRand()
+                            five.state = temp
+                            main.getRand()
+                            six.state = temp
+                            main.getRand()
+                            seven.state = temp
+                            //  main.getRand()
+                            // eight.state = temp
+
+
+                        }
+                        Column{
+                            Text{
+                                x:400
+                                y:550
+                                text: "Time: "+ gameTimer
+                                font.pointSize: 20
+                                color: "black"
+                            }
+                        }
+
+                    }
+
+
+
+                }
+            }
+        }
+    }
+
+
+}
+
+
+
+
+

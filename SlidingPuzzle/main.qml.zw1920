@@ -1,0 +1,195 @@
+import QtQuick 2.6
+import QtQuick.Window 2.2
+
+Rectangle{
+    width: 800; height: 800
+    id: main
+    signal startNew()
+    signal getRand()
+    property int temp: 0
+    property int i
+    property int gameTimer: 0
+    property int score: 0
+    property int round:0
+    function onUpdateTimer(time){
+        gameTimer = time
+    }
+    function onRandSignal(rand){
+        temp = rand
+    }
+
+    function jumble(){
+        if (temp == 1){
+            one.state = 1;two.state = 8;three.state=4;four.state=7;five.state=6;
+            six.state=5;seven.state=3;eight.state=2
+        }
+        if (temp == 2){
+            one.state = 7;two.state = 1;three.state=5;four.state=4;five.state=8;
+            six.state=3;seven.state=6;eight.state=2
+        }
+        if (temp == 3){
+            one.state = 1;two.state = 8;three.state=4;four.state=7;five.state=6;
+            six.state=5;seven.state=3;eight.state=2
+        }
+        if (temp == 4){
+            one.state = 8;two.state = 4;three.state=2;four.state=1;five.state=5;
+            six.state=6;seven.state=7;eight.state=3
+        }
+        if (temp == 5){
+            one.state = 6;two.state = 3;three.state=5;four.state=8;five.state=1;
+            six.state=2;seven.state=4;eight.state=7
+        }
+        if (temp == 6){
+            one.state = 5;two.state = 7;three.state=3;four.state=8;five.state=2;
+            six.state=1;seven.state=4;eight.state=6
+        }
+        if (temp == 7){
+            one.state = 6;two.state = 7;three.state=8;four.state=4;five.state=3;
+            six.state=5;seven.state=1;eight.state=2
+        }
+        if (temp == 8){
+            one.state = 3;two.state = 2;three.state=4;four.state=7;five.state=8;
+            six.state=5;seven.state=6;eight.state=1
+        }
+
+    }
+
+
+    Rectangle{
+        id:rect
+        border.color: "grey"
+        border.width:3
+        width: 600; height: 600
+        anchors.centerIn:parent
+        property int emptyX: 400
+        property int emptyY: 400
+
+        Column{
+            anchors.centerIn: rect
+            spacing: 20
+
+            Row{
+                Filler{}
+            }
+
+            Row{
+
+                Grid{
+                    id:grid
+                    spacing: 0
+                    rows: 3; columns:3
+                    Tile{
+                        id:one
+                        caption:"1"}
+                    Tile{
+                        id:two
+                        caption:"2"}
+                    Tile{
+                        id:three
+                        caption:"3"}
+                    Tile{
+                        id:four
+                        caption:"4"}
+                    Tile{
+                        id: five
+                        caption:"5"}
+                    Tile{
+                        id:six
+                        caption:"6"}
+                    Tile{
+                        id:seven
+                        caption:"7"}
+                    Tile{
+                        id:eight
+                        caption:"8"}
+                } //grid
+            }//grid row
+
+            Row{
+                Column{
+                    Button{
+
+                        caption:"Start Round"
+                        onClicked:{
+                            if (round == 8){
+                                popup2.visible=true
+                            }
+                            else{
+                            gameTimer = 0
+                            score = 0
+                            round++
+                            rect.emptyX = 400
+                            rect.emptyY = 400
+                            main.startNew()
+
+                            main.getRand()
+                            jumble()
+
+                            }//else
+                        } //onlcliked
+
+
+                    }//button
+
+}//start button column
+
+                Column{
+                    Text{
+                        x:200
+                        y:300
+                        text: "Time: "+ gameTimer+
+                              "\nRound: " + round
+                        font.pointSize: 20
+                        color: "black"
+                    }
+
+                }//timer col
+
+            }//row under puzzle
+        }//Main col
+
+
+
+    Rectangle {
+        id: popup
+        x: 100
+        y: 100
+        width: 300
+        height: 300
+        visible:false
+        Text{
+
+            anchors.centerIn: popup
+            text: "You Won!! Score:  "+ score
+            font.pointSize: 20
+            color: "black"
+        }
+        Button{
+            anchors.bottom:popup
+            caption:"Sweet!"
+            onClicked:{
+                popup.visible = false
+
+            }
+        }
+    }
+    Rectangle {
+        id: popup2
+        height:800
+        width: 800
+        visible:false
+        color:purple
+        Text{
+            anchors.centerIn: popup2
+            text: "That's All Folks :) "
+            font.pointSize: 20
+            color: "black"
+        }
+
+    }
+
+}
+}
+
+
+
